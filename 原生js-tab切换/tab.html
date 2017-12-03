@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>tab切换</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+
+       .box{
+           width: 500px;
+           margin:50px auto;
+
+       }
+        .ul-box{
+            width: 500px;
+            height: 50px;
+            border: 1px solid #cccccc;
+        }
+        .ul-box ul{
+            width: 500px;
+            height: 50px;
+        }
+       .ul-box ul li{
+           width: 100px;
+           height: 50px;
+           list-style: none;
+           float: left;
+           text-align:center;
+           line-height: 50px;
+           cursor: pointer;
+           color: tomato;
+           font-size: 30px;
+       }
+      .current{
+           background-color: purple;
+         }
+     .content-box div{
+           width: 500px;
+           height: 300px;
+           line-height: 300px;
+           font-size: 40px;
+           color: greenyellow;
+           background-color: pink;
+           text-align: center;
+           display: none;
+        }
+        .content-box .dom{
+           display: block;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <div class="ul-box">
+        <ul id="tab-box">
+            <li class="current">1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+        </ul>
+    </div>
+    <div id="content-box" class="content-box">
+        <div class="dom" style="background-color: red">内容1</div>
+        <div style="background-color: yellow">内容2</div>
+        <div style="background-color: teal">内容3</div>
+        <div style="background-color: thistle">内容4</div>
+        <div style="background-color: magenta">内容5</div>
+    </div>
+</div>
+<script>
+    window.onload=function () {
+        function $(id) {
+            return document.getElementById(id)
+        }
+       var lis= $('tab-box').getElementsByTagName('li')
+       var boxs= $('content-box').getElementsByTagName('div')
+        for(var i=0;i<lis.length;i++){
+            lis[i].index=i
+            lis[i].onmouseover=function () {
+                for(var j=0;j<lis.length;j++){
+                    lis[j].className=''
+                    boxs[j].className=''
+                }
+                this.className='current'
+                boxs[this.index].className='dom'
+            }
+        }
+    }
+</script>
+</body>
+</html>
