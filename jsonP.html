@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>09-百度搜索</title>
+    <script>
+        function json2str(data) {
+            data.t = Math.random();
+            var arr = [];
+            for(var key in data){
+                arr.push(key+"="+data[key]);
+            }
+            // 不能直接将中文提交给服务器, 中文需要编码之后再提交
+            return encodeURI(arr.join("&"));
+        }
+        function jsonp(options) {
+            var temp = document.querySelector("#jsonpScript");
+            if(temp){
+                document.body.removeChild(temp);
+            }
+            // 随机生成一个函数名称, 避免冲突
+            var name = ("XMG_"+Math.random()).replace(".", "");
+            // 指定回调函数名称(本地创建一个函数作为回调函数)
+            window[name] = options.fn;
+            // 指定回调函数的名称(告诉服务器跨域访问之后回调的函数名称)
+            options.data[options.cbName] = name;
+
+            // 格式化参数
+            var str = json2str(options.data);
+            // 创建一个script标签
+            var oScript = document.createElement("script");
+            oScript.setAttribute("id", "jsonpScript");
+            // 设置script标签的src属性
+            var url = options.url+"?"+str;
+            oScript.setAttribute("src", url);
+            // 注意点: 创建好了script标签, 如果没有添加到界面中, 是不会请求src
+            document.body.appendChild(oScript);
+        }
+    </script>
+    <script>
+        window.onload = function () {
+            // 1.拿到输入框
+            var oInput = document.querySelector("input");
+            // 2.监听用户输入事件
+            oInput.onkeyup = function () {
+                // 获取用户输入的内容
+                var text = oInput.value;
+                // 跨域访问
+                jsonp({
+                        "url": "https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su",
+                        "data": {
+                            "wd": text,
+                            "cb": "xxoo"
+                        },
+                        "cbName": "cb",
+                        "fn": function (obj) {
+                            // 1.创建ul
+                            var oUl = document.querySelector("ul") || document.createElement("ul");
+                            oUl.innerHTML = "";
+                            // 2.遍历对象创建li
+                            var arr = obj.s;
+                            for (var i = 0, len = arr.length; i < len; i++) {
+                                // 创建li
+                                var oLi = document.createElement("li");
+                                oLi.innerHTML = arr[i];
+                                // 将创建的li添加到ul中
+                                oUl.appendChild(oLi);
+                            }
+                            // 3.将ul添加到body中
+                            document.body.appendChild(oUl);
+                        }
+                    });
+            }
+        }
+    </script>
+
+</head>
+<body>
+<input type="text">
+</body>
+</html>
