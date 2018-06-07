@@ -1,0 +1,47 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+    <title>js获取日期：前天、昨天、今天、明天、后天</title>
+</head>
+
+<body>
+<script language="JavaScript" type="text/javascript">
+    Date.prototype.DateAdd = function(strInterval, Number)
+    {
+        var dtTmp = this;
+        switch (strInterval) {
+            case 's' :return new Date(Date.parse(dtTmp) + (1000 * Number));
+            case 'n' :return new Date(Date.parse(dtTmp) + (60000 * Number));
+            case 'h' :return new Date(Date.parse(dtTmp) + (3600000 * Number));
+            case 'd' :return new Date(Date.parse(dtTmp) + (86400000 * Number));
+            case 'w' :return new Date(Date.parse(dtTmp) + ((86400000 * 7) * Number));
+            case 'q' :return new Date(dtTmp.getFullYear(), (dtTmp.getMonth()) + Number*3, dtTmp.getDate(), dtTmp.getHours(), dtTmp.getMinutes(), dtTmp.getSeconds());
+            case 'm' :return new Date(dtTmp.getFullYear(), (dtTmp.getMonth()) + Number, dtTmp.getDate(), dtTmp.getHours(), dtTmp.getMinutes(), dtTmp.getSeconds());
+            case 'y' :return new Date((dtTmp.getFullYear() + Number), dtTmp.getMonth(), dtTmp.getDate(), dtTmp.getHours(), dtTmp.getMinutes(), dtTmp.getSeconds());
+        }
+    }
+
+    function GetDateStr2(AddDayCount)
+    {
+        var dd = new Date();
+        ddd = dd.DateAdd('d',AddDayCount);//三天后
+        var y = ddd.getFullYear();
+        var m = ddd.getMonth()+1;//获取当前月   
+        var d = ddd.getDate();
+        var week =ddd.getDay()  //获取星期几
+        var weekArr=["周日","周一","周二","周三","周四","周五","周六"]
+        return y+"-"+m+"-"+d+"---"+weekArr[week];
+    }
+
+
+    document.write("前天："+GetDateStr2(-2));
+    document.write("<br />昨天："+GetDateStr2(-1));
+    document.write("<br />今天："+GetDateStr2(0));
+    document.write("<br />明天："+GetDateStr2(1));
+    document.write("<br />后天："+GetDateStr2(2));
+    document.write("<br />大后天："+GetDateStr2(3));
+
+</script>
+
+</body>
+</html>
