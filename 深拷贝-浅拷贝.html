@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>深拷贝、浅拷贝</title>
+</head>
+<body>
+    <script>
+     /***
+     * shallowClone 浅拷贝   deepClone深拷贝
+     * 浅拷贝 assign 
+     * 深拷贝 JSON.parse - JSON.stringify 
+     * 递归调用实现
+     * */
+       
+    //浅拷贝方法一 Object.assign 
+    let obj1 = { cool:{name:'tuspring'}};
+    let obj2 = { name: 'tutu'} 
+    let obj = {}
+    Object.assign(obj,obj1,obj2) 
+    console.log(obj)
+
+    //浅拷贝方法一 Array.prototype.slice()
+    let arr = [1, 3, {
+         username: ' tutu'
+      }];
+    let arr3 = arr.slice();
+    arr3[2].username = 'tuspring'
+    console.log(arr);
+
+    // 深拷贝方法一 JSON.parser、JSON.stringify 缺点:不能接受函数
+     let obj1 = { cool:{name:'tuspring'}};
+     let obj2 = { name: 'tutu'}   
+     console.log(JSON.parse(JSON.stringify({...obj1,...obj2})))
+
+    // 深拷贝方法二 递归调用
+     function deepClone(formObj,toObj) {
+        let temp = toObj ||{}
+        for(let key in formObj){
+          if(typeof formObj[key] === 'object'){
+            temp[key] = Object.prototype.toString.call(formObj[key]) === '[object Array]'? []:{};
+            deepClone(formObj[key],temp[key])
+          }else{
+            temp[key] = formObj[key]
+          }
+        }
+        return temp
+      }  
+      
+      let cloneObj = deepClone(obj)
+      console.log(cloneObj)
+    
+    </script>
+</body>
+</html>
