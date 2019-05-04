@@ -1,7 +1,9 @@
-<html>
+
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-    <title>js获取日期：前天、昨天、今天、明天、后天</title>
+    <title>js鑾峰彇鏈潵鏃堕棿</title>
 </head>
 
 <body>
@@ -24,22 +26,22 @@
     function GetDateStr2(AddDayCount)
     {
         var dd = new Date();
-        ddd = dd.DateAdd('d',AddDayCount);//三天后
+        ddd = dd.DateAdd('d',AddDayCount);//锟斤拷锟斤拷锟�
         var y = ddd.getFullYear();
-        var m = ddd.getMonth()+1;//获取当前月   
+        var m = ddd.getMonth()+1;//锟斤拷取锟斤拷前锟斤拷   
         var d = ddd.getDate();
-        var week =ddd.getDay()  //获取星期几
-        var weekArr=["周日","周一","周二","周三","周四","周五","周六"]
+        var week =ddd.getDay()  //锟斤拷取锟斤拷锟节硷拷
+        var weekArr=["锟斤拷锟斤拷","锟斤拷一","锟杰讹拷","锟斤拷锟斤拷","锟斤拷锟斤拷","锟斤拷锟斤拷","锟斤拷锟斤拷"]
         return y+"-"+m+"-"+d+"---"+weekArr[week];
     }
 
 
-    document.write("前天："+GetDateStr2(-2));
-    document.write("<br />昨天："+GetDateStr2(-1));
-    document.write("<br />今天："+GetDateStr2(0));
-    document.write("<br />明天："+GetDateStr2(1));
-    document.write("<br />后天："+GetDateStr2(2));
-    document.write("<br />大后天："+GetDateStr2(3));
+    document.write("前锟届："+GetDateStr2(-2));
+    document.write("<br />锟斤拷锟届："+GetDateStr2(-1));
+    document.write("<br />锟斤拷锟届："+GetDateStr2(0));
+    document.write("<br />锟斤拷锟届："+GetDateStr2(1));
+    document.write("<br />锟斤拷锟届："+GetDateStr2(2));
+    document.write("<br />锟斤拷锟斤拷欤�"+GetDateStr2(3));
 
 </script>
 
